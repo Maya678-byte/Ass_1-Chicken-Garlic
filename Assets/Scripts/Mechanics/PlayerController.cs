@@ -44,6 +44,7 @@ namespace Platformer.Mechanics
         private InputAction m_MoveAction;
         private InputAction m_JumpAction;
 
+
         public Bounds Bounds => collider2d.bounds;
 
         void Awake()
@@ -56,13 +57,15 @@ namespace Platformer.Mechanics
 
             m_MoveAction = InputSystem.actions.FindAction("Player/Move");
             m_JumpAction = InputSystem.actions.FindAction("Player/Jump");
-            
             m_MoveAction.Enable();
             m_JumpAction.Enable();
+        
         }
-
+        
         protected override void Update()
         {
+           
+            
             if (controlEnabled)
             {
                 move.x = m_MoveAction.ReadValue<Vector2>().x;
@@ -73,6 +76,7 @@ namespace Platformer.Mechanics
                     stopJump = true;
                     Schedule<PlayerStopJump>().player = this;
                 }
+               
             }
             else
             {
@@ -80,6 +84,7 @@ namespace Platformer.Mechanics
             }
             UpdateJumpState();
             base.Update();
+          
         }
 
         void UpdateJumpState()
