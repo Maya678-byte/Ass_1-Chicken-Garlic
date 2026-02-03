@@ -68,7 +68,7 @@ namespace Platformer.Mechanics
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
                 // Debug.Log("attack");
-                animator.SetTrigger("isAttack");
+                animator.SetTrigger("PlayerAttack");
             }
             //else if (Keyboard.current.eKey.wasReleasedThisFrame)
             //{
