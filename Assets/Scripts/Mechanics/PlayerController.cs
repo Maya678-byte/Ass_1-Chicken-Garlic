@@ -64,8 +64,16 @@ namespace Platformer.Mechanics
         
         protected override void Update()
         {
-           
-            
+
+            if (Keyboard.current.eKey.wasPressedThisFrame)
+            {
+                // Debug.Log("attack");
+                animator.SetTrigger("isAttack");
+            }
+            //else if (Keyboard.current.eKey.wasReleasedThisFrame)
+            //{
+            //    animator.SetTrigger("isAttack");
+            //}
             if (controlEnabled)
             {
                 move.x = m_MoveAction.ReadValue<Vector2>().x;
