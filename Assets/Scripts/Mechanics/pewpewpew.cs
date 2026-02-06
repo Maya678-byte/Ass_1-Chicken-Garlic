@@ -1,3 +1,5 @@
+using FantasyBattlegroundsPixelArtOriginal;
+using Platformer.Mechanics;
 using UnityEngine;
 
 public class pewpewpew : MonoBehaviour
@@ -12,8 +14,13 @@ public class pewpewpew : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.Translate(Vector3.right*Time.deltaTime*speed);
-        transform.Translate(Vector3.right * Time.deltaTime * speed * transform.localScale.x);
+        transform.Translate(Vector3.right*Time.deltaTime*speed);
+        //transform.Translate(Vector3.right * Time.deltaTime * speed * Player.rotation.y);
+        // Move projectile depending on player facing
+        //float dir = PlayerController.spriteRenderer.flipX ? -1f : 1f;
+        //transform.Translate(Vector3.right * Time.deltaTime * speed * dir);
+
+
 
     }
 }
