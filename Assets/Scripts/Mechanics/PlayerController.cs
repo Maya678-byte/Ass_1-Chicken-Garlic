@@ -19,6 +19,7 @@ namespace Platformer.Mechanics
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
 
+        public GameObject projectilePrefab;
         /// <summary>
         /// Max horizontal speed of the player.
         /// </summary>
@@ -65,11 +66,17 @@ namespace Platformer.Mechanics
         
         protected override void Update()
         {
+            //if (Input.GetKeyDown(KeyCode.E))
+            //{
+
+            //}
+
 
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
                 // Debug.Log("attack");
                 animator.SetTrigger("isAttack");
+                Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
             }
             //else if (Keyboard.current.eKey.wasReleasedThisFrame)
             //{
