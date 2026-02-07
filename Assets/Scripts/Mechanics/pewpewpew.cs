@@ -16,8 +16,8 @@ public class pewpewpew : MonoBehaviour
     {
         transform.Translate(Vector3.right*Time.deltaTime*speed);
         //transform.Translate(Vector3.right * Time.deltaTime * speed * Player.rotation.y);
-        // Move projectile depending on player facing
-        //float dir = PlayerController.spriteRenderer.flipX ? -1f : 1f;
+        
+        //float dir = PlayerController.projectilePrefab.flipX ? -1f : 1f;
         //transform.Translate(Vector3.right * Time.deltaTime * speed * dir);
 
 

@@ -39,8 +39,23 @@ namespace Platformer.Mechanics
             currentHP = Mathf.Clamp(currentHP - 1, 0, maxHP);
             if (currentHP == 0)
             {
-                var ev = Schedule<HealthIsZero>();
-                ev.health = this;
+                if (CompareTag("Boss"))
+                {
+                    Debug.Log("Boss defeated!");
+                    Destroy(gameObject);
+                    var ev = Schedule<HealthIsZero>();
+                    ev.health = this;
+                }
+                else if (CompareTag("Player"))
+                {
+                    Debug.Log("Player died!");
+                    // Don't destroy player or fire event here
+                    // PlayerController handles death
+                }
+
+
+                //var ev = Schedule<HealthIsZero>();
+                //ev.health = this;
             }
         }
 

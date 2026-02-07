@@ -51,5 +51,39 @@ namespace Platformer.Mechanics
             }
         }
 
+        //private void OnTriggerEnter2D(Collider2D other)
+        //{
+        //    // Only handle collisions with something tagged as Enemy or Boss
+        //    if (other.CompareTag("Enemy"))
+        //    {
+        //        // Normal enemy dies immediately
+        //        Destroy(other.gameObject);
+
+        //        // Destroy the projectile
+        //        Destroy(gameObject);
+        //    }
+        //    else if (other.CompareTag("Boss"))
+        //    {
+        //        // Boss has Health component
+        //        var health = other.GetComponent<Health>();
+        //        if (health != null)
+        //        {
+        //            health.Decrement(); // deal 1 damage
+        //        }
+
+        //        // Destroy projectile
+        //        Destroy(gameObject);
+
+        //        // Optional: destroy boss if HP reaches 0
+        //        if (health != null && !health.IsAlive)
+        //        {
+        //            Destroy(other.gameObject);
+        //        }
+        //    }
+        //}
+
+
+
+
     }
 }

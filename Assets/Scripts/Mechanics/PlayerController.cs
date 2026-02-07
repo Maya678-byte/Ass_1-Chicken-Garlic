@@ -76,8 +76,9 @@ namespace Platformer.Mechanics
             {
                 // Debug.Log("attack");
                 animator.SetTrigger("isAttack");
-                Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
-                
+                //Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
+                Instantiate(projectilePrefab, transform.position, transform.rotation);
+
             }
             //else if (Keyboard.current.eKey.wasReleasedThisFrame)
             //{
