@@ -1,67 +1,43 @@
-////using Platformer.Gameplay;
-////using UnityEngine;
-////using static Platformer.Core.Simulation;
-
-////namespace Platformer.Mechanics
-////{
-////    /// <summary>
-////    /// Marks a trigger as a VictoryZone, usually used to end the current game level.
-////    /// </summary>
-////    public class VictoryZone : MonoBehaviour
-////    {
-////        void OnTriggerEnter2D(Collider2D collider)
-////        {
-////            var p = collider.gameObject.GetComponent<PlayerController>();
-////            if (p != null)
-////            {
-////                var ev = Schedule<PlayerEnteredVictoryZone>();
-////                ev.victoryZone = this;
-////            }
-////        }
-////    }
-////}
-///
-
-using Platformer.Gameplay;
-using UnityEngine;
-using static Platformer.Core.Simulation;
-using UnityEngine.UI; // For UI Text
-using TMPro; // at the top
+//using Platformer.Gameplay;
+//using UnityEngine;
+//using static Platformer.Core.Simulation;
+//using UnityEngine.UI; // For UI Text
+//using TMPro; // at the top
 
 
 
-namespace Platformer.Mechanics
-{
-    /// <summary>
-    /// Marks a trigger as a VictoryZone, usually used to end the current game level.
-    /// </summary>
-    public class VictoryZone : MonoBehaviour
-    {
-        //public Text winText; // assign in Inspector
-        public TMP_Text winText; // replace Text with TMP_Text
-        void OnTriggerEnter2D(Collider2D collider)
-        {
-            var p = collider.gameObject.GetComponent<PlayerController>();
-            if (p != null)
-            {
-                // Schedule the event (your existing system)
-                var ev = Schedule<PlayerEnteredVictoryZone>();
-                ev.victoryZone = this;
+//namespace Platformer.Mechanics
+//{
+//    /// <summary>
+//    /// Marks a trigger as a VictoryZone, usually used to end the current game level.
+//    /// </summary>
+//    public class VictoryZone : MonoBehaviour
+//    {
+//        //public Text winText; // assign in Inspector
+//        public TMP_Text winText; // replace Text with TMP_Text
+//        void OnTriggerEnter2D(Collider2D collider)
+//        {
+//            var p = collider.gameObject.GetComponent<PlayerController>();
+//            if (p != null)
+//            {
+//                // Schedule the event (your existing system)
+//                var ev = Schedule<PlayerEnteredVictoryZone>();
+//                ev.victoryZone = this;
 
-                // Freeze player
-                p.enabled = false;
-                var rb = p.GetComponent<Rigidbody2D>();
-                if (rb != null) rb.linearVelocity = Vector2.zero;
+//                // Freeze player
+//                p.enabled = false;
+//                var rb = p.GetComponent<Rigidbody2D>();
+//                if (rb != null) rb.linearVelocity = Vector2.zero;
 
-                // Show the "You Win!" message
-                if (winText != null)
-                    winText.gameObject.SetActive(true);
+//                // Show the "You Win!" message
+//                if (winText != null)
+//                    winText.gameObject.SetActive(true);
 
-                Debug.Log("Player entered victory zone!");
-            }
-        }
-    }
-}
+//                Debug.Log("Player entered victory zone!");
+//            }
+//        }
+//    }
+//}
 
 
 //using Platformer.Gameplay;
@@ -125,3 +101,98 @@ namespace Platformer.Mechanics
 //        }
 //    }
 //}
+
+//using Platformer.Gameplay;
+//using TMPro;
+//using UnityEngine;
+
+//namespace Platformer.Mechanics
+//{
+//    public class VictoryZone : MonoBehaviour
+//    {
+//        public TMP_Text winText; // assign "You Win!" text in Inspector
+
+//        void Awake()
+//        {
+//            if (winText != null)
+//                winText.gameObject.SetActive(false); // hide at start
+//        }
+
+//        void OnTriggerEnter2D(Collider2D collider)
+//        {
+//            var p = collider.gameObject.GetComponent<PlayerController>();
+//            if (p != null)
+//            {
+//                // Freeze player
+//                p.enabled = false;
+//                var rb = p.GetComponent<Rigidbody2D>();
+//                if (rb != null) rb.linearVelocity = Vector2.zero;
+
+
+//                // Show the "You Win!" text
+//                if (winText != null)
+//                    winText.gameObject.SetActive(true);
+
+//                Debug.Log("Player entered victory zone!");
+//            }
+//            var ev = Schedule<PlayerEnteredVictoryZone>();
+//            ev.victoryZone = this;
+//        }
+//    }
+//}
+
+using Platformer.Core;       // Required for Schedule<T>()
+using Platformer.Gameplay;   // Required for PlayerEnteredVictoryZone
+using TMPro;
+using UnityEngine;
+
+namespace Platformer.Mechanics
+{
+    public class VictoryZone : MonoBehaviour
+    {
+        public TMP_Text winText; // assign "You Win!" text in Inspector
+
+        void Awake()
+        {
+            // Hide Win Text at start
+            if (winText != null)
+                winText.gameObject.SetActive(false);
+        }
+
+        void OnTriggerEnter2D(Collider2D collider)
+        {
+            var player = collider.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                // Freeze player physics but allow Animator to run
+                var rb = player.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector2.zero;   // stop movement
+                    rb.bodyType = RigidbodyType2D.Kinematic; ;        // freeze physics
+                }
+
+                // Play victory animation
+                var anim = player.GetComponent<Animator>();
+                if (anim != null)
+                    anim.SetTrigger("Victory");   // make sure Animator has "Victory" trigger
+
+                // Show the "You Win!" text
+                if (winText != null)
+                    winText.gameObject.SetActive(true);
+
+                Debug.Log("Player entered victory zone!");
+            }
+
+            // Schedule the victory event
+            var ev = Simulation.Schedule<PlayerEnteredVictoryZone>();
+            ev.victoryZone = this;
+        }
+    }
+}
+
+
+
+
+
+//            }
