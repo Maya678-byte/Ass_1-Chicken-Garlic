@@ -152,7 +152,7 @@ namespace Platformer.Mechanics
     {
         public TMP_Text winText; // assign "You Win!" text in Inspector
 
-        void Awake()
+        private void Awake()
         {
             // Hide Win Text at start
             if (winText != null)
@@ -169,7 +169,7 @@ namespace Platformer.Mechanics
                 if (rb != null)
                 {
                     rb.linearVelocity = Vector2.zero;   // stop movement
-                    rb.bodyType = RigidbodyType2D.Kinematic; ;        // freeze physics
+                    rb.bodyType = RigidbodyType2D.Kinematic;      // freeze physics
                 }
 
                 // Play victory animation
